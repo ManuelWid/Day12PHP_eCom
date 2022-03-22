@@ -14,7 +14,7 @@ $stroptions = "";
 foreach($rows as $row){
     $stroptions .= "<option value='{$row["sup_id"]}'>{$row["sup_name"]}</option>";
 }
-
+mysqli_close($connect);
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ foreach($rows as $row){
                     </tr>
                     <tr>
                         <td><button class='btn btn-success' type="submit">Add product</button></td>
-                        <td><a href="index.php"><button class='btn btn-primary' type="button">Home</button></a></td>
+                        <td><a href="../index.php"><button class='btn btn-primary' type="button">Home</button></a></td>
                     </tr>
                 </table>
             </form>
