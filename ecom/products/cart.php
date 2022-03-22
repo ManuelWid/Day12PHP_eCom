@@ -11,7 +11,8 @@
                 <td><img class='img-thumbnail' src='../pictures/" .$row['prod_pic']."'</td>
                 <td>" .$row['prod_name']."</td>
                 <td>" .$row['amount']."</td>
-                <td><a href='details.php?prod_id=" .$row['prod_id']."'><button class='btn btn-primary btn-sm' type='button'>Details</button></a> <a href='actions/a_cartdelete.php?prod_id=".$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Remove</button></a></td></tr>";
+                <td><a href='details.php?prod_id=" .$row['prod_id']."'><button class='btn btn-primary btn-sm' type='button'>Details</button></a> 
+                <a href='actions/a_cartdelete.php?prod_id=".$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Remove</button></a></td></tr>";
         }
     }
     else{
@@ -51,7 +52,7 @@
             <div class='mb-3'>
                 <div class="d-flex justify-content-between">
                 <a href= "../index.php"><button class="btn btn-primary" type="button" >Back</button></a>
-                <a href= "actions/order.php"><button class="btn btn-primary" type="button" >Order</button></a>
+                <a href= "actions/a_order.php"><button class="btn btn-primary" type="button" >Order</button></a>
                 </div>
             </div>
             <p class='h2'>Products</p>

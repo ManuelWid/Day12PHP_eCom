@@ -38,6 +38,7 @@ if ($_POST) {
 } else {
     header("location: ../../error.php");
 }
+mysqli_close($connect);
 ?>
 
 <!DOCTYPE html>

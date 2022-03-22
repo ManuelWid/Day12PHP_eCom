@@ -12,7 +12,8 @@
                 <td>" .$row['prod_name']."</td>
                 <td>" .$row['prod_stock']."</td><td>";
             if(isset($_SESSION["user"])){
-                $tcontent .= "<input type='number' name='amount'></td><td><button class='btn btn-primary btn-sm' type='submit' name='addcart'>Add to cart</button></a>";
+                $tcontent .= "<form action='products/actions/a_cart.php' method='post'>
+                <input class='w-25' type='number' name='amount'></td><td><button class='btn btn-primary btn-sm' type='submit' name='addcart'>Add to cart</button></a><input type='hidden' name='prod_id' value='$row[prod_id]'></form>";
             }
             if(isset($_SESSION["adm"])){
                 $tcontent .= " <a href='products/update.php?prod_id=" .$row['prod_id']."'><button class='btn btn-warning btn-sm' type='button'>Edit</button></a>

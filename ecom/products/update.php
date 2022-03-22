@@ -34,12 +34,10 @@ if ($_GET['prod_id']) {
             $stroptions .= "<option value='{$row["sup_id"]}'>{$row["sup_name"]}</option>";
         }
     }
-
-
-    mysqli_close($connect);
 } else {
     header("location: error.php");
 }
+mysqli_close($connect);
 ?>
 
 <!DOCTYPE html>
