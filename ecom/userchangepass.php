@@ -6,11 +6,10 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
     header("Location: index.php");
     exit;
 }
-elseif($_SESSION["user"] == $_GET["id"]){$toggle=true;}
-else{$toggle=false;}
+elseif($_SESSION["user"] != $_GET["id"]){header("Location: index.php");}
 
 $class = 'd-none';
-if (isset($_POST["submit"]) && $toggle) {
+if (isset($_POST["submit"])) {
     if(isset($_POST["oldpass"]) && isset($_POST["newpass"]) && isset($_POST["newpass2"])){
         if($_POST["newpass"] === $_POST["newpass2"]){
             $password = hash('sha256', $_POST['oldpass']);
@@ -67,8 +66,7 @@ mysqli_close($connect);
             <p><?php echo ($uploadError) ?? ''; ?></p>
         </div>
 
-        <h2>Update</h2>
-        <img class='img-thumbnail rounded-circle' src='pictures/<?php echo $data['user_pic'] ?>' alt="Something went wrong.">
+        <h2>Update password</h2>
         <form method="post" action="">
             <table class="table">
                 <tr>

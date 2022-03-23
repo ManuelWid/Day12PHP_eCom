@@ -105,7 +105,9 @@ mysqli_close($connect);
                     <input type="hidden" name="picture" value="<?php echo $picture ?>" />
                     <td><button name="submit" class="btn btn-success" type="submit">Save Changes</button></td>
                     <td><a href="index.php"><button class="btn btn-warning" type="button">Back</button></a>
-                    <a href="userchangepass.php?id=<?php echo $_SESSION['user'] ?>"><button class="btn btn-danger" type="button">Change password</button></a></td>
+                    <?php if(isset($_SESSION["user"])){
+                        echo "<a href='userchangepass.php?id=".$_SESSION['user']."'><button class='btn btn-danger' type='button'>Change password</button></a></td>";
+                    } ?>
                 </tr>
             </table>
         </form>
