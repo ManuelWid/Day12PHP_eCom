@@ -10,7 +10,7 @@ elseif($_SESSION["user"] != $_GET["id"]){header("Location: index.php");}
 
 $class = 'd-none';
 if (isset($_POST["submit"])) {
-    if(isset($_POST["oldpass"]) && isset($_POST["newpass"]) && isset($_POST["newpass2"])){
+    if(isset($_POST["oldpass"]) && $_POST["newpass"] != "" && $_POST["newpass2"] != ""){
         if($_POST["newpass"] === $_POST["newpass2"]){
             $password = hash('sha256', $_POST['oldpass']);
             $newpass = hash('sha256', $_POST['newpass']);
@@ -71,15 +71,15 @@ mysqli_close($connect);
             <table class="table">
                 <tr>
                     <th>Current Password:</th>
-                    <td><input class="form-control" type="password" name="oldpass" placeholder="Current Password" /></td>
+                    <td><input class="form-control" type="text" name="oldpass" placeholder="Current Password" /></td>
                 </tr>
                 <tr>
                     <th>New Password:</th>
-                    <td><input class="form-control" type="password" name="newpass" placeholder="New Password" /></td>
+                    <td><input class="form-control" type="text" name="newpass" placeholder="New Password" /></td>
                 </tr>
                 <tr>
                     <th>New Password:</th>
-                    <td><input class="form-control" type="password" name="newpass2" placeholder="New Password" /></td>
+                    <td><input class="form-control" type="text" name="newpass2" placeholder="New Password" /></td>
                 </tr>
                 <tr>
                     <td><button name="submit" class="btn btn-success" type="submit">Save Password</button></td>
