@@ -64,7 +64,7 @@ mysqli_close($connect);
         <div class="row">
             <div class="col-2 mt-5">
                 <img class="userImage" src="pictures/admavatar.png" alt="Adm avatar">
-                <p class="">King of France</p>
+                <p>Neo</p>
                 <a href="logout.php?logout">Sign Out</a>
             </div>
             <div class="col-8 mt-2">

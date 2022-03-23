@@ -39,7 +39,7 @@ mysqli_close($connect);
 </head>
 
 <body>
-    <div class="container">
+    <div class="container w-75">
         <div class="hero">
             <div class="d-flex">
             <img class="userImage" src="pictures/<?php echo $row['user_pic']; ?>" alt="Something went wrong.">
