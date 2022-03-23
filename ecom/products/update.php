@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["adm"])){
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 

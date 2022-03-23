@@ -33,12 +33,13 @@ if ($_POST) {
         $message = "Error while updating record : <br>" . mysqli_connect_error() . "<br/> You will be redirected in 5 seconds.";
         $uploadError = ($picture->error !=0)? $picture->ErrorMessage :'';
     }
+    //header("refresh:5 ; url=../../index.php");
     mysqli_close($connect);
-    header("refresh:5 ; url=../../index.php");
 } else {
     header("location: ../../error.php");
+    mysqli_close($connect);
 }
-mysqli_close($connect);
+
 ?>
 
 <!DOCTYPE html>
@@ -56,8 +57,8 @@ mysqli_close($connect);
             <div class="alert alert-<?= $class;?>" role="alert">
                 <p><?= ($message) ?? ''; ?></p>
                 <p><?= ($uploadError) ?? ''; ?></p>
-                <a href='../update.php?dish_id=<?= $id;?>'><button class="btn btn-warning" type='button'>Back</button></a>
-                <a href='../index.php'><button class="btn btn-success" type='button'>Home</button></a>
+                <a href='../update.php?prod_id=<?= $id;?>'><button class="btn btn-warning" type='button'>Back</button></a>
+                <a href='../../index.php'><button class="btn btn-success" type='button'>Home</button></a>
             </div>
         </div>
     </body>

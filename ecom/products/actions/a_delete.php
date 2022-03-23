@@ -23,8 +23,10 @@ if ($_POST) {
     mysqli_close($connect);
     header("refresh: 3; url= ../../index.php");
 } else {
+    mysqli_close($connect);
     header("location: ../../error.php");
 }
+
 ?>
 
 <!DOCTYPE html>
