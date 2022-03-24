@@ -2,10 +2,12 @@
     session_start();
     require_once "components/db_connect.php";
 
+    // check if theres a search
     if($_POST){
+        // sanitize the search string to prevent code injections
         $searchstr = '%'.filter_var($_POST["searchstr"], FILTER_VALIDATE_REGEXP,array(
             "options" => array("regexp" =>"/^[a-zA-Z]+$/"))).'%';
-        echo $searchstr;
+        // echo $searchstr;
         $sql = "select * from products where prod_name like '$searchstr'";
         $result = mysqli_query($connect, $sql);
         $tcontent = "";
@@ -23,14 +25,20 @@
                     $tcontent .= " <a href='products/update.php?prod_id=" .$row['prod_id']."'><button class='btn btn-warning btn-sm' type='button'>Edit</button></a>
                     <a href='products/delete.php?prod_id=" .$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Delete</button></a>";
                 }
+                if(isset($_SESSION["sup"])){
+                    if($row["fk_sup_id"] == $_SESSION["fk_sup_id"]){
+                        $tcontent .= " <a href='products/update.php?prod_id=" .$row['prod_id']."'><button class='btn btn-warning btn-sm' type='button'>Edit</button></a>
+                        <a href='products/delete.php?prod_id=" .$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Delete</button></a>";
+                    }
+                }
                 $tcontent .= " <a href='products/details.php?prod_id=" .$row['prod_id']."'><button class='btn btn-primary btn-sm' type='button'>Details</button></a></td></tr>";
             }
         }
         else{
             $tcontent = "<tr><td colspan='5'><center>No Data Available </center></td></tr>";
         }
-    }else{
-    $sql = "select * from products";
+    }else{ // if no search then display everything
+    $sql = "select products.* from products";
     $result = mysqli_query($connect, $sql);
     $tcontent = "";
     if(mysqli_num_rows($result) > 0){
@@ -46,6 +54,12 @@
             if(isset($_SESSION["adm"])){
                 $tcontent .= " <a href='products/update.php?prod_id=" .$row['prod_id']."'><button class='btn btn-warning btn-sm' type='button'>Edit</button></a>
                 <a href='products/delete.php?prod_id=" .$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Delete</button></a>";
+            }
+            if(isset($_SESSION["sup"])){
+                if($row["fk_sup_id"] == $_SESSION["fk_sup_id"]){
+                    $tcontent .= " <a href='products/update.php?prod_id=" .$row['prod_id']."'><button class='btn btn-warning btn-sm' type='button'>Edit</button></a>
+                    <a href='products/delete.php?prod_id=" .$row['prod_id']."'><button class='btn btn-danger btn-sm' type='button'>Delete</button></a>";
+                }
             }
             $tcontent .= " <a href='products/details.php?prod_id=" .$row['prod_id']."'><button class='btn btn-primary btn-sm' type='button'>Details</button></a></td></tr>";
         }
@@ -86,12 +100,17 @@
         <div class="manageProduct w-75 mt-3">    
             <div class='mb-3'>
                 <?php
-                if(!isset($_SESSION["adm"]) && !isset($_SESSION["user"])){
+                if(!isset($_SESSION["adm"]) && !isset($_SESSION["user"]) && !isset($_SESSION["sup"])){
                     echo '<a href= "login.php"><button class="btn btn-success" type="button" >Login</button></a>';
                 }
                 if(isset($_SESSION["adm"])){
                     echo '<div class="d-flex justify-content-between">
-                    <a href= "logout.php?logout"><button class="btn btn-danger" type="button" >Logout</button></a> <div>
+                    <a href= "logout.php?logout"><button class="btn btn-danger" type="button" >Logout</button></a>
+                    <div><form method="POST" class="d-flex">
+                    <input type="text" name="searchstr" class="form-control" placeholder="Search for..." maxlength="50" />
+                    <button class="btn btn-primary btn-sm" type="submit" name="searchsub">Search</button></form>
+                    </div>
+                    <div>
                     <a href= "products/create.php"><button class="btn btn-primary" type="button" >Add product</button></a>
                     <a href= "adminpanel.php"><button class="btn btn-warning" type="button" >Admin panel</button></a>
                     </div></div>';
@@ -106,6 +125,18 @@
                     <button class="btn btn-primary btn-sm" type="submit" name="searchsub">Search</button></form>
                     </div>
                     <a href= "products/cart.php"><button class="btn btn-primary" type="button" >Cart</button></a>
+                    </div>';
+                }
+                elseif(isset($_SESSION["sup"])){
+                    echo ' <div class="d-flex justify-content-between">
+                    <div>
+                    <a href= "logout.php?logout"><button class="btn btn-danger" type="button" >Logout</button></a> <a href= "user.php"><button class="btn btn-primary" type="button" >Profile</button></a>
+                    </div>
+                    <div><form method="POST" class="d-flex">
+                    <input type="text" name="searchstr" class="form-control" placeholder="Search for..." maxlength="50" />
+                    <button class="btn btn-primary btn-sm" type="submit" name="searchsub">Search</button></form>
+                    </div>
+                    <a href= "supproducts.php"><button class="btn btn-primary" type="button" >My Products</button></a>
                     </div>';
                 }
                 

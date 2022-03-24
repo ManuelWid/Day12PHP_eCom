@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['user']) || isset($_SESSION['adm'])) {
+if (isset($_SESSION['user']) || isset($_SESSION['adm']) || isset($_SESSION['sup'])) {
     header("Location: index.php");
 }
 
@@ -61,6 +61,7 @@ if (isset($_POST['btn-signup'])) {
             $errTyp = "success";
             $errMSG = "Successfully registered, you may login now";
             $uploadError = ($picture->error != 0) ? $picture->ErrorMessage : '';
+            header("refresh: 3; url=login.php");
         } else {
             $errTyp = "danger";
             $errMSG = "Something went wrong, try again later...";

@@ -3,13 +3,14 @@ session_start();
 require_once "components/db_connect.php";
 require_once 'components/file_upload.php';
 
-if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
+if (!isset($_SESSION['adm']) && !isset($_SESSION['user']) && !isset($_SESSION['sup'])) {
     header("Location: index.php");
     exit;
 }
 
 if(isset($_SESSION["adm"])){$toggle=true;}
-elseif($_SESSION["user"] == $_GET["id"]){$toggle=true;}
+elseif(isset($_SESSION["user"]) && $_SESSION["user"] == $_GET["id"]){$toggle=true;}
+elseif(isset($_SESSION["sup"]) && $_SESSION["sup"] == $_GET["id"]){$toggle=true;}
 else{$toggle=false;}
 
 if ($toggle) {
@@ -113,8 +114,8 @@ mysqli_close($connect);
                     <input type="hidden" name="picture" value="<?php echo $picture ?>" />
                     <td><button name="submit" class="btn btn-success" type="submit">Save Changes</button></td>
                     <td><a href="index.php"><button class="btn btn-warning" type="button">Back</button></a>
-                    <?php if(isset($_SESSION["user"])){
-                        echo "<a href='userchangepass.php?id=".$_SESSION['user']."'><button class='btn btn-danger' type='button'>Change password</button></a></td>";
+                    <?php if(isset($_SESSION["user"]) || isset($_SESSION["sup"])){
+                        echo "<a href='userchangepass.php?id=".$id."'><button class='btn btn-danger' type='button'>Change password</button></a></td>";
                     } ?>
                 </tr>
             </table>

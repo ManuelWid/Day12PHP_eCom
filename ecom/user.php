@@ -2,12 +2,15 @@
 session_start();
 require_once "components/db_connect.php";
 
-if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
+if (!isset($_SESSION['adm']) && !isset($_SESSION['user']) && !isset($_SESSION['sup'])) {
     header("Location: index.php");
     exit;
 }
 
-$res = mysqli_query($connect, "SELECT * FROM users WHERE user_id=".$_SESSION['user']);
+if(isset($_SESSION['user'])){$id = $_SESSION['user'];}
+elseif(isset($_SESSION['sup'])){$id = $_SESSION['sup'];}
+else{$id = $_SESSION['adm'];}
+$res = mysqli_query($connect, "SELECT * FROM users WHERE user_id=".$id);
 $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
 mysqli_close($connect);
@@ -48,7 +51,7 @@ mysqli_close($connect);
         </div>
         <div class="container mt-3">
         <a href= "index.php"><button class="btn btn-primary" type="button" >Home</button></a>
-        <a href= "userupdate.php?id=<?php echo $_SESSION['user'] ?>"><button class="btn btn-warning" type="button" >Edit profile</button></a>
+        <a href= "userupdate.php?id=<?php echo $id ?>"><button class="btn btn-warning" type="button" >Edit profile</button></a>
         <a href= "logout.php?logout"><button class="btn btn-danger" type="button" >Logout</button></a>
         </div>
     </div>

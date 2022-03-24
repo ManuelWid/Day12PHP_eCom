@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["adm"])){
+if(!isset($_SESSION["adm"]) && !isset($_SESSION["sup"])){
     header("Location: ../../index.php");
     exit;
 }
@@ -9,6 +9,13 @@ require_once "../../components/db_connect.php";
 require_once '../../components/file_upload.php';
 
 if ($_POST) {
+    if(!isset($_SESSION["adm"])){
+        if($_POST['supplier'] != $_SESSION['fk_sup_id']){
+            header("location: ../../index.php");
+            mysqli_close($connect);
+            exit;
+        }
+    }
     $name = $_POST['name'];
     $price = $_POST['price'];
     $id = $_POST['id'];

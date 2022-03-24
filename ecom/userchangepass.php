@@ -2,11 +2,12 @@
 session_start();
 require_once "components/db_connect.php";
 
-if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
+if (!isset($_SESSION['adm']) && !isset($_SESSION['user']) && !isset($_SESSION['sup'])) {
     header("Location: index.php");
     exit;
 }
-elseif($_SESSION["user"] != $_GET["id"]){header("Location: index.php");}
+elseif(isset($_SESSION["user"]) && $_SESSION["user"] != $_GET["id"]){header("Location: index.php");}
+elseif(isset($_SESSION["sup"]) && $_SESSION["sup"] != $_GET["id"]){header("Location: index.php");}
 
 // cleans any input and returns it
 function cleanIO($val){
@@ -23,7 +24,8 @@ if (isset($_POST["submit"])) {
             $password = hash('sha256', $_POST['oldpass']);
             $newpass = cleanIO($_POST['newpass']);
             $newpass = hash('sha256', $newpass);
-            $id = $_SESSION["user"];
+            if(isset($_SESSION["user"])){$id = $_SESSION["user"];}
+            else{$id = $_SESSION["sup"];}
             $sql = "SELECT user_pass FROM users WHERE user_id = $id";
             $res = mysqli_query($connect, $sql);
             $data = mysqli_fetch_assoc($res);

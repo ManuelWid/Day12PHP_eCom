@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["adm"])){
+if(!isset($_SESSION["adm"]) && !isset($_SESSION["sup"])){
     header("Location: ../index.php");
     exit;
 }
