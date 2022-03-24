@@ -21,7 +21,8 @@ if ($_GET['prod_id']) {
     mysqli_close($connect);
 } else {
     header("location: ../error.php");
-}  
+}
+mysqli_close($connect);
 ?>
 
 <!DOCTYPE html>

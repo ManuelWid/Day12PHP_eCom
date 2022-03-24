@@ -10,5 +10,6 @@
         }   
         else{header("Location: ../../error.php");}
     }
+    mysqli_close($connect);
 
 ?>

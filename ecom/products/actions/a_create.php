@@ -40,6 +40,7 @@ if ($_POST && !(empty($_POST["name"]))) {
 } else {
     header("location: ../../error.php");
 }
+mysqli_close($connect);
 ?>
 
 <!DOCTYPE html>
