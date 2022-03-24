@@ -2,16 +2,10 @@
     session_start();
     require_once "components/db_connect.php";
 
-    // cleans any input and returns it
-    function cleanIO($val){
-        $value = trim($val);
-        $value = strip_tags($value);
-        $value = htmlspecialchars($value);
-        return $value;
-}
-
     if($_POST){
-        $searchstr = "%".cleanIO($_POST["searchstr"])."%";
+        $searchstr = '%'.filter_var($_POST["searchstr"], FILTER_VALIDATE_REGEXP,array(
+            "options" => array("regexp" =>"/^[a-zA-Z]+$/"))).'%';
+        echo $searchstr;
         $sql = "select * from products where prod_name like '$searchstr'";
         $result = mysqli_query($connect, $sql);
         $tcontent = "";
