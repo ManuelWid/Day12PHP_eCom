@@ -31,15 +31,26 @@ if (isset($_POST["submit"])) {
                 $sql1 = "update users set user_pass = '$newpass' where user_id = $id";
                 if (mysqli_query($connect, $sql1)) {
                     $class = "alert alert-success";
-                    $message = "Your password was successfully updated";
+                    $message = "Your password was successfully updated <br/> You will be redirected in 3 seconds.";
                     header("refresh:3;url=index.php");
                 } else {
                     $class = "alert alert-danger";
-                    $message = "Error while updating password : <br>";
+                    $message = "Error while updating password <br/> You will be redirected in 3 seconds.";
                     header("refresh:3;url=index.php");
                 }
+            }else{
+                $class = "alert alert-danger";
+                $message = "Incorrect password!";
             }
         }
+        else{
+            $class = "alert alert-danger";
+            $message = "The new password doesnt match.";
+        }
+    }
+    else{
+        $class = "alert alert-danger";
+        $message = "Please fill in all fields.";
     }
 }
 
@@ -72,7 +83,6 @@ mysqli_close($connect);
     <div class="container w-50">
         <div class="<?php echo $class; ?>" role="alert">
             <p><?php echo ($message) ?? ''; ?></p>
-            <p><?php echo ($uploadError) ?? ''; ?></p>
         </div>
 
         <h2>Update password</h2>
