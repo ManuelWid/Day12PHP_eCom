@@ -5,7 +5,7 @@
 
                 // mail function in php look like this  (mail(To, subject, Message, Headers, Parameters))
                 $headers = "FROM : ". $email . "\r\n";
-                $myEmail = "elrond132@hotmail.com";
+                $myEmail = "yourmail@mail.com";
                 if(mail($myEmail, "message coming from the contact form", $msg, $headers)){
                         echo "sent";
                 }else {
