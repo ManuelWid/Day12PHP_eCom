@@ -27,10 +27,18 @@ else{
     exit;
 }
 
+// cleans any input and returns it
+function cleanIO($val){
+    $value = trim($val);
+    $value = strip_tags($value);
+    $value = htmlspecialchars($value);
+    return $value;
+}
+
 //update
 $class = 'd-none';
 if (isset($_POST["submit"])) {
-    $email = $_POST['email'];
+    $email = cleanIO($_POST['email']);
     $id = $_POST['id'];
 
     $uploadError = '';

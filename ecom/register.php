@@ -47,8 +47,8 @@ if (isset($_POST['btn-signup'])) {
         $error = true;
         $passError = "Password must have at least 6 characters.";
     }
-
     $password = hash('sha256', $pass);
+    
     // if there's no error, continue to signup
     if (!$error) {
 

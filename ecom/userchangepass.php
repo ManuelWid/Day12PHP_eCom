@@ -8,12 +8,21 @@ if (!isset($_SESSION['adm']) && !isset($_SESSION['user'])) {
 }
 elseif($_SESSION["user"] != $_GET["id"]){header("Location: index.php");}
 
+// cleans any input and returns it
+function cleanIO($val){
+    $value = trim($val);
+    $value = strip_tags($value);
+    $value = htmlspecialchars($value);
+    return $value;
+}
+
 $class = 'd-none';
 if (isset($_POST["submit"])) {
     if(isset($_POST["oldpass"]) && $_POST["newpass"] != "" && $_POST["newpass2"] != ""){
         if($_POST["newpass"] === $_POST["newpass2"]){
             $password = hash('sha256', $_POST['oldpass']);
-            $newpass = hash('sha256', $_POST['newpass']);
+            $newpass = cleanIO($_POST['newpass']);
+            $newpass = hash('sha256', $newpass);
             $id = $_SESSION["user"];
             $sql = "SELECT user_pass FROM users WHERE user_id = $id";
             $res = mysqli_query($connect, $sql);
@@ -71,15 +80,15 @@ mysqli_close($connect);
             <table class="table">
                 <tr>
                     <th>Current Password:</th>
-                    <td><input class="form-control" type="text" name="oldpass" placeholder="Current Password" /></td>
+                    <td><input class="form-control" type="password" name="oldpass" placeholder="Current Password" /></td>
                 </tr>
                 <tr>
                     <th>New Password:</th>
-                    <td><input class="form-control" type="text" name="newpass" placeholder="New Password" /></td>
+                    <td><input class="form-control" type="password" name="newpass" placeholder="New Password" /></td>
                 </tr>
                 <tr>
                     <th>New Password:</th>
-                    <td><input class="form-control" type="text" name="newpass2" placeholder="New Password" /></td>
+                    <td><input class="form-control" type="password" name="newpass2" placeholder="New Password" /></td>
                 </tr>
                 <tr>
                     <td><button name="submit" class="btn btn-success" type="submit">Save Password</button></td>
