@@ -97,8 +97,10 @@ mysqli_close($connect);
             <span class="text-danger"><?php echo $passError; ?></span>
             <hr />
             <button class="btn btn-block btn-primary" type="submit" name="btn-login">Sign In</button>
+            <a href="index.php"><button class="btn btn-block btn-primary" type="button">Home</button></a>
             <hr />
             <a href="register.php">Click here to register</a>
+            <!-- debug only -->
             <select name="users">
                 <option value="">none</option>
                 <option value="admin">admin</option>

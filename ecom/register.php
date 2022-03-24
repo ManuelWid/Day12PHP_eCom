@@ -11,6 +11,7 @@ $error = false;
 $email = $pass = $picture = '';
 $emailError = $passError = $picError = '';
 
+// cleans any input and returns it
 function cleanIO($val){
     $value = trim($val);
     $value = strip_tags($value);
@@ -106,6 +107,7 @@ mysqli_close($connect);
             <span class="text-danger"> <?php echo $picError; ?> </span>
             <hr />
             <button type="submit" class="btn btn-block btn-primary" name="btn-signup">Sign Up</button>
+            <a href="index.php"><button class="btn btn-block btn-primary" type="button">Home</button></a>
             <hr />
             <a href="login.php">Sign in Here...</a>
         </form>
