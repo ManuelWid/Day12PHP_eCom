@@ -8,6 +8,7 @@ $res = mysqli_query($connect, $sql);
 $data = mysqli_fetch_all($res, MYSQLI_ASSOC);
 foreach($data as $row){
     $newstock = $row["prod_stock"] - $row["amount"];
+    if($newstock < 0){$newstock = 0;}
     $sql1 = "update products set prod_stock = $newstock where prod_id = $row[fk_prod_id]";
     mysqli_query($connect, $sql1);
     $sql2 = "delete from cart where fk_user_id = $id and fk_prod_id = $row[fk_prod_id]";

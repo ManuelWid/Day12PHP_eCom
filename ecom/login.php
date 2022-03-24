@@ -13,6 +13,7 @@ if (isset($_SESSION['adm'])) {
 $error = false;
 $email = $password = $emailError = $passError = '';
 
+// cleans any input and returns it
 function cleanIO($val){
     $value = trim($val);
     $value = strip_tags($value);
@@ -24,6 +25,7 @@ if (isset($_POST['btn-login'])) {
     $email = cleanIO($_POST['email']);
     $pass = cleanIO($_POST['pass']);
 
+    // email validation
     if (empty($email)) {
         $error = true;
         $emailError = "Please enter your email address.";
@@ -38,6 +40,7 @@ if (isset($_POST['btn-login'])) {
     }
 
     if (!$error) {
+        // hash passwords before inserting them in the db
         $password = hash('sha256', $pass);
 
         $sql = "SELECT user_id, user_pass, user_status FROM users WHERE user_mail = '$email'";
@@ -56,6 +59,11 @@ if (isset($_POST['btn-login'])) {
             $errMSG = "Incorrect Credentials, Try again...";
         }
     }
+
+    // debuggin only ==============
+    if($_POST['users'] == "admin"){$_SESSION['adm'] = 1; header("Location: index.php");}
+    if($_POST['users'] == "user1"){$_SESSION['user'] = 2; header("Location: index.php");}
+    if($_POST['users'] == "user2"){$_SESSION['user'] = 4; header("Location: index.php");}
 }
 
 mysqli_close($connect);
@@ -91,6 +99,12 @@ mysqli_close($connect);
             <button class="btn btn-block btn-primary" type="submit" name="btn-login">Sign In</button>
             <hr />
             <a href="register.php">Click here to register</a>
+            <select name="users">
+                <option value="">none</option>
+                <option value="admin">admin</option>
+                <option value="user1">user1</option>
+                <option value="user2">user2</option>
+            </select>
         </form>
     </div>
 </body>
